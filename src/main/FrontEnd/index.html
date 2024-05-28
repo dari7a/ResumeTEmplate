@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create resume</title>
+    <script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3/dist/vue-router.js"></script>
+    <script src="anime.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400');
+
+
+        body {
+            margin: 0px;
+            text-align: center;
+            padding-top: 43vh;
+            color: #fff;
+            font-family: 'Roboto';
+            font-size: 36px;
+            font-weight: 100;
+            overflow: hidden;
+            animation: bg 5s linear infinite;
+        }
+
+        .dropping-texts {
+            display: inline-block;
+            width: 180px;
+            text-align: left;
+            height: 36px;
+            vertical-align: -2px;
+        }
+
+        .dropping-texts > div {
+            font-size: 0px;
+            opacity: 0;
+            margin-left: -30px;
+            margin-top: -30px;
+            position: absolute;
+            font-weight: 300;
+            box-shadow: 0px 60px 25px -20px rgba(0, 0, 0, 0.5);
+        }
+
+        .dropping-texts > div:nth-child(1) {
+            animation: roll 5s linear infinite 0s;
+        }
+
+        .dropping-texts > div:nth-child(2) {
+            animation: roll 5s linear infinite 1s;
+        }
+
+        .dropping-texts > div:nth-child(3) {
+            animation: roll 5s linear infinite 2s;
+        }
+
+        .dropping-texts > div:nth-child(4) {
+            animation: roll2 5s linear infinite 3s;
+        }
+
+        h1 {
+            margin-bottom: -125px;
+        }
+
+        @keyframes roll {
+            0% {
+                font-size: 0px;
+                opacity: 0;
+                margin-left: -30px;
+                margin-top: 0px;
+                transform: rotate(-25deg);
+            }
+            3% {
+                opacity: 1;
+                transform: rotate(0deg);
+            }
+            5% {
+                font-size: inherit;
+                opacity: 1;
+                margin-left: 0px;
+                margin-top: 0px;
+            }
+            20% {
+                font-size: inherit;
+                opacity: 1;
+                margin-left: 0px;
+                margin-top: 0px;
+                transform: rotate(0deg);
+            }
+            27% {
+                font-size: 0px;
+                opacity: 0.5;
+                margin-left: 20px;
+                margin-top: 100px;
+            }
+            100% {
+                font-size: 0px;
+                opacity: 0;
+                margin-left: -30px;
+                margin-top: 0px;
+                transform: rotate(15deg);
+            }
+        }
+
+        @keyframes roll2 {
+            0% {
+                font-size: 0px;
+                opacity: 0;
+                margin-left: -30px;
+                margin-top: 0px;
+                transform: rotate(-25deg);
+            }
+            3% {
+                opacity: 1;
+                transform: rotate(0deg);
+            }
+            5% {
+                font-size: inherit;
+                opacity: 1;
+                margin-left: 0px;
+                margin-top: 0px;
+            }
+            30% {
+                font-size: inherit;
+                opacity: 1;
+                margin-left: 0px;
+                margin-top: 0px;
+                transform: rotate(0deg);
+            }
+            37% {
+                font-size: 1500px;
+                opacity: 0;
+                margin-left: -1000px;
+                margin-top: -800px;
+            }
+            100% {
+                font-size: 0px;
+                opacity: 0;
+                margin-left: -30px;
+                margin-top: 0px;
+                transform: rotate(15deg);
+            }
+        }
+
+        @keyframes bg {
+            0% {
+                background: #ff0075;
+            }
+            3% {
+                background: #0094ff;
+            }
+            20% {
+                background: #0094ff;
+            }
+            23% {
+                background: #b200ff;
+            }
+            40% {
+                background: #b200ff;
+            }
+            43% {
+                background: #8BC34A;
+            }
+            60% {
+                background: #8BC34A;
+            }
+            63% {
+                background: #F44336;
+            }
+            80% {
+                background: #F44336;
+            }
+            83% {
+                background: #F44336;
+            }
+            100% {
+                background: #F44336;
+            }
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        .wrap {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        html {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            border: 0;
+            margin: 0;
+            padding: 0;
+            font-family: 'Lato';
+            height: 100%;
+            background: rgb(101, 31, 87);
+            background: linear-gradient(45deg, rgba(101, 31, 87, 1) 0%, rgba(225, 113, 87, 1) 48%, rgba(249, 248, 113, 1) 100%);
+        }
+
+        .logo {
+            align-self: center;
+            color: #fff;
+            font-weight: bold;
+            font-family: 'Lato'
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 4rem 0.8rem;
+            pading-left: 23rem;
+        }
+
+        ul.sidebar-panel-nav {
+            list-style-type: none;
+        }
+
+        ul.sidebar-panel-nav > li > a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            display: block;
+            padding-bottom: 1em;
+            padding-right: 5em;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        button:focus {
+            outline: 0;
+        }
+
+        .burger-button {
+            position: relative;
+            height: 30px;
+            width: 32px;
+            display: block;
+            z-index: 999;
+            border: 0;
+            border-radius: 0;
+            background-color: transparent;
+            pointer-events: all;
+            transition: transform .6s cubic-bezier(.165, .84, .44, 1);
+        }
+
+        .burger-bar {
+            background-color: #00BFFF;
+            position: absolute;
+            top: 50%;
+            right: 6px;
+            left: 6px;
+            height: 2px;
+            width: auto;
+            margin-top: -1px;
+            transition: transform .6s cubic-bezier(.165, .84, .44, 1), opacity .3s cubic-bezier(.165, .84, .44, 1), background-color .6s cubic-bezier(.165, .84, .44, 1);
+        }
+
+        .burger-bar--1 {
+            -webkit-transform: translateY(-6px);
+            transform: translateY(-6px);
+        }
+
+        .burger-bar--2 {
+            transform-origin: 100% 50%;
+            transform: scaleX(.8);
+        }
+
+        .burger-button:hover .burger-bar--2 {
+            transform: scaleX(1);
+        }
+
+        .no-touchevents .burger-bar--2:hover {
+            transform: scaleX(1);
+        }
+
+        .burger-bar--3 {
+            transform: translateY(6px);
+        }
+
+        #burger.active .burger-button {
+            transform: rotate(-180deg);
+        }
+
+        #burger.active .burger-bar {
+            background-color: #fff;
+        }
+
+        #burger.active .burger-bar--1 {
+            transform: rotate(45deg)
+        }
+
+        #burger.active .burger-bar--2 {
+            opacity: 0;
+        }
+
+        #burger.active .burger-bar--3 {
+            transform: rotate(-45deg)
+        }
+
+        .slide-enter-active,
+        .slide-leave-active {
+            transition: transform 0.2s ease;
+        }
+
+        .slide-enter,
+        .slide-leave-to {
+            transform: translateX(-100%);
+            transition: all 150ms ease-in 0s
+        }
+
+        .sidebar-backdrop {
+            background-color: rgba(19, 15, 64, .4);
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+
+        .sidebar-panel {
+            overflow-y: auto;
+            background-color: #1E90FF;
+            position: fixed;
+            left: 0;
+            top: 75px;
+            height: 100vh;
+            1 z-index: 999;
+            padding: 3rem 20px 2rem 20px;
+            width: 300px;
+
+        }
+
+        @import url('https://fonts.googleapis.com/css?family=Lato:100&display=swap');
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #5CA4EA;
+            overflow: hidden;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .container {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .center {
+            width: 180px;
+            height: 60px;
+            position: absolute;
+        }
+
+        .btn {
+            width: 180px;
+            height: 60px;
+            cursor: pointer;
+            background: transparent;
+            border: 3px solid #91C9FF;
+            outline: none;
+            border-radius: 10px;
+            margin-left: -50px;
+            transition: 1s ease-in-out;
+        }
+
+        svg {
+            position: absolute;
+            margin-left: -25px;
+            top: 0;
+            fill: none;
+            stroke: #fff;
+            stroke-dasharray: 150 480;
+            stroke-dashoffset: 150;
+            transition: 1s ease-in-out;
+        }
+
+        .btn:hover {
+            transition: 1s ease-in-out;
+            background: #4F95DA;
+        }
+
+        .btn:hover svg {
+            stroke-dashoffset: -480;
+        }
+
+        .btn span {
+            color: white;
+            font-size: 18px;
+            font-weight: 100;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <nav class="main-nav">
+        <div class="logo">
+        </div>
+        <Burger></Burger>
+    </nav>
+    <template id="burger">
+        <div id="burger"
+             :class="{ 'active' : isBurgerActive }"
+             @click.prevent="toggle">
+            <slot>
+                <button type="button" class="burger-button" title="Menu">
+                    <span class="hidden">Toggle menu</span>
+                    <span class="burger-bar burger-bar--1"></span>
+                    <span class="burger-bar burger-bar--2"></span>
+                    <span class="burger-bar burger-bar--3"></span>
+                </button>
+            </slot>
+        </div>
+    </template>
+    <h1>Create for Everyone</h1>
+    <div class="dropping-texts" style="margin-bottom:-135px">
+        <div>Original</div>
+        <div>Creative</div>
+        <div>Beautiful</div>
+        <div>Resume!</div>
+    </div>
+    <div id="app">
+        <nav class="main-nav">
+            <div class="logo">
+            </div>
+            <Burger></Burger>
+        </nav>
+        <Sidebar>
+            <ul class="sidebar-panel-nav">
+                <li><a href="file:///C:/Users/Daria/IdeaProjects/resumetemplates/src/main/FrontEnd/SignIn.html">Sign
+                    In</a></li>
+            </ul>
+        </Sidebar>
+    </div>
+    <template id="sidebar">
+        <div class="sidebar">
+            <div class="sidebar-backdrop" @click="closeSidebarPanel" v-if="isPanelOpen"></div>
+            <transition name="slide">
+                <div v-if="isPanelOpen"
+                     class="sidebar-panel">
+                    <slot></slot>
+                </div>
+            </transition>
+        </div>
+    </template>
+</body>
+</html>
